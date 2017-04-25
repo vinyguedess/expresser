@@ -1,0 +1,9 @@
+# App files and folders
+coverage/
+node_modules/
+npm-debug.*
+
+# OS and IDE files and folders
+.idea/
+.vscode/
+nb_project/

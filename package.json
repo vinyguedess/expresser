@@ -1,0 +1,31 @@
+{
+  "name": "expresser",
+  "description": "Framework manager based on express",
+  "keywords": [
+    "express",
+    "framework",
+    "mean"
+  ],
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
+    "mocha": "^3.3.0",
+    "prettier": "^1.2.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "test": "istanbul cover node_modules/.bin/_mocha && codecov"
+  }
+}
