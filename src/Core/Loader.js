@@ -1,6 +1,8 @@
 const express = require('express'),
     bodyParser = require('body-parser');
 
+const ControllerResolver = require('./MVC/ControllerResolver');
+
 
 class Loader {
 
@@ -14,11 +16,17 @@ class Loader {
 
     get(url, callback)
     {
+        if (typeof callback === 'string')
+            callback = new ControllerResolver(callback).handle();
+
         this.app.get(url, callback);
     }
 
     post(url, callback)
     {
+        if (typeof callback === 'string')
+            callback = new ControllerResolver(callback).handle();
+            
         this.app.post(url, callback);
     }
 

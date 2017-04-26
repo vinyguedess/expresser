@@ -59,24 +59,18 @@ class ControllerResolver
 
     _checkIfControllerExists()
     {
-        if (typeof this.controllersPath === 'string') {
-            if (this.domain === null)
-                return fs.existsSync(`${this.controllersPath}${this.controller}.js`);
+        if (this.domain === null)
+            return fs.existsSync(`${this.controllersPath}${this.controller}.js`);
 
-            let controllerFilePath = `${this.controllersPath}${this.domain}/`;
-            controllerFilePath += `Controllers/${this.controller}.js`;
+        let controllerFilePath = `${this.controllersPath}${this.domain}/`;
+        controllerFilePath += `Controllers/${this.controller}.js`;
 
-            return fs.existsSync(controllerFilePath);
-        }
-
-        return false;
+        return fs.existsSync(controllerFilePath); 
     }
 
     _prepareConfigurations()
     {
-        if (typeof Config.get('mvc.path.controllers') === 'string') {
-            this.controllersPath = `${appRoot}/` + Config.get('mvc.path.controllers');
-        }
+        this.controllersPath = `${appRoot}/` + Config.get('mvc.path.controllers');
     }
 
 }

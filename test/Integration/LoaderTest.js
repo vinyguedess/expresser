@@ -1,7 +1,8 @@
 const assert = require('chai').assert,
     request = require('request');
 
-const L = require('./../../index');
+const L = require('./../../index'),
+    app = L.app;
 
 
 describe('LoaderTest', () => {
@@ -13,7 +14,7 @@ describe('LoaderTest', () => {
         { id: 3, name: 'UserThree' }
         ];
         
-        L.app.get('/v1/users', (Request, Response) => {
+        app.get('/v1/users', (Request, Response) => {
             
             return Response.status(200).json({
                 status: true,
@@ -21,7 +22,7 @@ describe('LoaderTest', () => {
             });
         });
         
-        L.app.post('/v1/users', (Request, Response) => {
+        app.post('/v1/users', (Request, Response) => {
             let obj = Request.body;
 
             return Response.status(200).json({
@@ -30,7 +31,7 @@ describe('LoaderTest', () => {
             });
         });
         
-        L.app.run(3000);
+        app.run(3000);
     });
     
     describe('making get request', () => {
