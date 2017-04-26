@@ -7,7 +7,7 @@ global.appRoot = path.resolve(__dirname);
 let loader = new Loader();
 
 module.exports = {
-    'loader': loader,
+    'app': loader,
     
     'config': Config
 };

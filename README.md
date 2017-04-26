@@ -1,5 +1,5 @@
 # Expresser
-A framework or just a toolset extended from express, make a great use.
+An express boilerplate for developing applications
 
 ### Installation
 ```javascript

@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require('express'),
+    bodyParser = require('body-parser');
 
 
 class Loader {
@@ -6,15 +7,40 @@ class Loader {
     constructor()
     {   
         this.app = express();
+
+        this.register(bodyParser.urlencoded({ extended: false }));
+        this.register(bodyParser.json());
     }
 
-    run()
+    get(url, callback)
     {
-        let port = 3000;
-        
-        this.app.run(port, () => {
-            console.log('Application running at port ' + port);
+        this.app.get(url, callback);
+    }
+
+    post(url, callback)
+    {
+        this.app.post(url, callback);
+    }
+
+    register(callback)
+    {
+        this.app.use(callback);
+    }
+
+    run(port)
+    {        
+        if (typeof port === 'undefined')
+            port = 3000;
+
+        this.server = this.app.listen(port, () => {
+            // console.log('Application running at port ' + port);
         });
+    }
+
+    turnDown()
+    {
+        if (typeof this.server !== 'undefined')
+            this.server.close();
     }
 
 }

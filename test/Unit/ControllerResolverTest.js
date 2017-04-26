@@ -51,4 +51,11 @@ describe('ControllerResolverTest', () => {
         });
     });
 
+    describe('applying DDD Concept and loading a controller of a Domain', () => {
+        it('Should load a Controller from a defined domain', () => {
+            let resolver = new ControllerResolver('DomainName@DDDController@dddAction');
+            assert.isFunction(resolver.handle());
+        });
+    });
+
 });
