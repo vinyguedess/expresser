@@ -1,21 +1,21 @@
 # expresser-boilerplate
-[!TravisCI](https://api.travis-ci.org/vinyguedess/expresser-boilerplate.svg?branch=master)
-[!Codecov](https://img.shields.io/codecov/c/github/vinyguedess/expresser-boilerplate.svg)
-[!NPM Version](https://img.shields.io/npm/v/expresser-boilerplate.svg)
-[!NPM Download](https://img.shields.io/npm/dt/expresser-boilerplate.svg)
-[!Licence](https://img.shields.io/npm/l/expresser-boilerplate.svg)
+![TravisCI](https://api.travis-ci.org/vinyguedess/expresser-boilerplate.svg?branch=master)
+![Codecov](https://img.shields.io/codecov/c/github/vinyguedess/expresser-boilerplate.svg)
+![NPM Version](https://img.shields.io/npm/v/expresser-boilerplate.svg)
+![NPM Download](https://img.shields.io/npm/dt/expresser-boilerplate.svg)
+![Licence](https://img.shields.io/npm/l/expresser-boilerplate.svg)
 
 An [ExpressJS](https://npmjs.com/package/express) boilerplate for developing applications.
 
 ### Installation
 ```javascript
-    npm install --save expresser
+    npm install --save expresser-boilerplate
 ```
 
 ### Introduction
 First of all you must require the package and run app
 ```javascript
-    const expresser = require('expresser'),
+    const expresser = require('expresser-boilerplate'),
         app = expresser.app;
 
     app.get('/', (Request, Response) => {
