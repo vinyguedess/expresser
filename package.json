@@ -1,12 +1,12 @@
 {
-  "name": "expresser",
+  "name": "expresser-boilerplate",
   "description": "Framework manager based on express",
   "keywords": [
     "express",
     "framework",
     "mean"
   ],
-  "version": "0.7.1",
+  "version": "0.7.2",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.17.1",
