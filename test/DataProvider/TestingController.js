@@ -10,8 +10,15 @@ class TestingController
 
     indexAction(Request, Response)
     {
+        return Response.send('OK');
+    }
 
-        Response.send('OK');
+    apiTestAction()
+    {
+        return Response.status(403).json({
+            status: false,
+            message: 'Unauthorizes'
+        });
     }
 
 }

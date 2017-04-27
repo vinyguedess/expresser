@@ -1,7 +1,9 @@
 const express = require('express'),
     bodyParser = require('body-parser');
 
-const ControllerResolver = require('./MVC/ControllerResolver');
+const Config = require('./Config'), 
+    ControllerResolver = require('./MVC/ControllerResolver'),
+    Url2ControllerResolver = require('./MVC/Url2ControllerResolver');
 
 
 class Loader {
@@ -40,6 +42,10 @@ class Loader {
         if (typeof port === 'undefined')
             port = 3000;
 
+        console.log(Config);
+        if (Config.get('mvc.routes.auto', true))
+            this.app.all('/*', new Url2ControllerResolver().handle);
+
         this.server = this.app.listen(port, () => {
             // console.log('Application running at port ' + port);
         });
@@ -49,6 +55,31 @@ class Loader {
     {
         if (typeof this.server !== 'undefined')
             this.server.close();
+    }
+
+    _getConfig()
+    {
+        Config.register({
+            "mvc": {
+                "suffix": {
+                    "controllers": true
+                },
+                "path": {
+                    "controllers": "src/Controllers/"
+                },
+                "routes": {
+                    "auto": true,
+                    "style": "simple",
+                    "defaults": {
+                        "domain": null,
+                        "controller": "MainController",
+                        "action": "indexAction"
+                    }
+                }
+            }
+        });
+
+        return Config;
     }
 
 }

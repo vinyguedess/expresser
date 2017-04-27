@@ -2,6 +2,7 @@ const assert = require('chai').assert,
     request = require('request');
 
 const L = require('./../../index'),
+    ControllerResolver = L.resolver,
     app = L.app;
 
 
@@ -30,6 +31,9 @@ describe('LoaderTest', () => {
                 data: obj
             });
         });
+
+        app.get('/simple-mvc-route', new ControllerResolver('TestingController@index')
+            .handle());
         
         app.run(3000);
     });
@@ -77,6 +81,30 @@ describe('LoaderTest', () => {
                     data = JSON.parse(data.toString());
                     assert.isTrue(data.status);
 
+                    done();
+                });
+        });
+    });
+
+    describe('making request for a simple mvc route', () => {
+        it('Should respond with "OK"', done => {
+            request
+                .get('http://localhost:3000/simple-mvc-route')
+                .on('response', Response => assert.equal(200, Response.statusCode))
+                .on('data', data => {
+                    assert.equal('OK', data.toString());
+
+                    done();
+                });
+        });
+    });
+
+    describe('making requests to auto generated urls', () => {
+        it('Should respond with a 403 and a JSON explaining why', done => {
+            request
+                .get('http://localhost:3000/testing/api-test')
+                .on('data', data => {
+                    console.log(data.toString());
                     done();
                 });
         });

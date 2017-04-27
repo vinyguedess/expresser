@@ -1,6 +1,6 @@
 const path = require('path'),
     Loader = require('./src/Core/Loader'),
-    Config = require('./src/Core/Config');
+    ControllerResolver = require('./src/Core/MVC/ControllerResolver');
 
 global.appRoot = process.cwd();
 
@@ -9,5 +9,6 @@ let loader = new Loader();
 module.exports = {
     'app': loader,
     
-    'config': Config
+    'config': loader._getConfig(),
+    'resolver': ControllerResolver
 };

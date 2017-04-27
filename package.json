@@ -6,10 +6,10 @@
     "framework",
     "mean"
   ],
-  "version": "0.7.6",
+  "version": "0.8.1",
   "main": "index.js",
   "license": "MIT",
-  "repository": "vinyguedess/expresser",
+  "repository": "vinyguedess/expresser-boilerplate",
   
   "dependencies": {
     "body-parser": "^1.17.1",

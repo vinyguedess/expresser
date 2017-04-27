@@ -8,7 +8,8 @@
 An [ExpressJS](https://npmjs.com/package/express) boilerplate for developing applications.
 
 ### Installation
-```javascript
+```bash
+    npm install -g istanbul codecov
     npm install --save expresser-boilerplate
 ```
 

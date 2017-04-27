@@ -5,7 +5,7 @@ class DDDController
 
     dddAction(Request, Response)
     {
-        Response.send('Hello me');
+        return Response.send('Hello me');
     }
 
 }
