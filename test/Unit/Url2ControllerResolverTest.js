@@ -20,9 +20,9 @@ describe('Url2ControllerResolverTest', () => {
 
             let resolver = new Url2ControllerResolver();
 
-            assert.isFunction(resolver.handle({ url: '/'}, {send: sender}));
-            assert.isFunction(resolver.handle({ url: '/testing'}, {send: sender}));
-            assert.isFunction(resolver.handle({ url: '/testing/index'}, {send: sender}));
+            assert.equal('OK', resolver.handle({ url: '/'}, {send: sender}));
+            assert.equal('OK', resolver.handle({ url: '/testing'}, {send: sender}));
+            assert.equal('OK', resolver.handle({ url: '/testing/index'}, {send: sender}));
         });
 
         it('Should use routes based in DDD', () => {
@@ -31,10 +31,10 @@ describe('Url2ControllerResolverTest', () => {
 
             let resolver = new Url2ControllerResolver();
 
-            assert.isFunction(resolver.handle({url: '/'}, {send: sender}));
-            assert.isFunction(resolver.handle({url: '/domain-name'}, {send: sender}))
-            assert.isFunction(resolver.handle({url: '/domainName/ddd'}, {send: sender}));
-            assert.isFunction(resolver.handle({url: '/domain_name/ddd/ddd'}, {send: sender}));
+            assert.throw(() => resolver.handle({url: '/'}, {send: sender}));
+            assert.throw(() => resolver.handle({url: '/domain-name'}, {send: sender}))
+            assert.throw(() => resolver.handle({url: '/domainName/ddd'}, {send: sender}));
+            assert.equal('Hello me', resolver.handle({url: '/domain_name/ddd/ddd'}, {send: sender}));
         });
 
     });

@@ -54,9 +54,33 @@ describe('LoaderTest', () => {
         });
 
         it('Should validate if it\'s a valid URL', (done) => {
-            request.get('http://localhost:3000/v1/other-url-inexistent')
+            request
+                .get('http://localhost:3000/v1/other-url-inexistent')
                 .on('response', (Response) => {
                     assert.equal(404, Response.statusCode);
+                })
+                .on('data', (data) => {
+                    assert.instanceOf(data, Buffer);
+                    assert.equal('Requested controller V1Controller does not exist', data.toString());
+                    done();
+                });
+        });
+
+        it('Should validate a 404 making request with json response', done => {
+            request
+                .get('http://localhost:3000/v1/other-url-inexistent', {
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                })
+                .on('response', Response => {
+                    assert.equal(404, Response.statusCode);
+                })
+                .on('data', data => {
+                    data = JSON.parse(data.toString());
+                    assert.isFalse(data.status);
+                    assert.equal(data.error, 'Requested controller V1Controller does not exist');
+
                     done();
                 });
         });

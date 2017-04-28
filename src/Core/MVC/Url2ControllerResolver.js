@@ -15,42 +15,54 @@ class Url2ControllerResolver
         }
     }
 
-    handle()
+    handle(Request, Response)
     {
         let _this = this;
 
-        return (Request, Response) => {
-            let route = '';
-            if (Request.url === '/' || Request.url.length === 1) {
-                route = `${_this.defaults.controller}@${_this.defaults.action}`;
-                if (_this.routeDDDStyle)
-                    route = `${_this.defaults.domain}@` + route;
-
-                let action = new ControllerResolver(route).handle();
-                return action(Request, Response);
-            }
-
-            let url = Request.url.split("/").filter((el) => {
-                return el.length > 0;
-            }).map(el => _this.camelCasefy(el));
-
+        let route = '';
+        if (Request.url === '/' || Request.url.length === 1) {
+            route = `${this.defaults.controller}@${this.defaults.action}`;
             if (this.routeDDDStyle)
-                var [domain, controller, action] = url;
-            else
-                var [controller, action] = url;
-                
-            controller = controller.charAt(0).toUpperCase() + controller.slice(1);
-            if (typeof action === 'undefined')
-                    action = this.defaults.action;
+                route = `${this.defaults.domain}@` + route;
 
-            route = `${controller}Controller@${action}`;
-            if (_this.routeDDDStyle) {
-                domain = domain.charAt(0).toUpperCase() + domain.slice(1);
-                route = `${domain}@${route}`;
-            }
+            let action = new ControllerResolver(route).handle();
+            return action(Request, Response);
+        }
 
+        let url = Request.url.split("/").filter((el) => {
+            return el.length > 0;
+        }).map(el => _this.camelCasefy(el));
+
+        if (this.routeDDDStyle)
+            var [domain, controller, action] = url;
+        else
+            var [controller, action] = url;
+            
+        controller = controller.charAt(0).toUpperCase() + controller.slice(1);
+        if (typeof action === 'undefined')
+                action = this.defaults.action;
+
+        route = `${controller}Controller@${action}`;
+        if (this.routeDDDStyle) {
+            domain = domain.charAt(0).toUpperCase() + domain.slice(1);
+            route = `${domain}@${route}`;
+        }
+
+        try {
             let controllerAction = new ControllerResolver(route).handle();
+            
             return controllerAction(Request, Response);
+        } catch (err) {
+            let headers = Request.headers;
+            if (typeof headers['content-type'] !== 'undefined' && headers['content-type'].indexOf('json') >= 0)
+                return Response
+                    .status(404)
+                    .json({
+                        status: false,
+                        error: err.message
+                    });
+
+            return Response.status(404).send(err.message);
         }
     }
 

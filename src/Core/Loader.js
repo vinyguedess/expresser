@@ -42,9 +42,10 @@ class Loader {
         if (typeof port === 'undefined')
             port = 3000;
 
-        console.log(Config);
         if (Config.get('mvc.routes.auto', true))
-            this.app.all('/*', new Url2ControllerResolver().handle);
+            this.app.all('/*', (req, res) => {
+                return new Url2ControllerResolver().handle(req, res);
+            });
 
         this.server = this.app.listen(port, () => {
             // console.log('Application running at port ' + port);
